@@ -1,28 +1,54 @@
 {
-   "user": [
-      {
-         "name": "Sridhar",
-         "email": "sri@gmail.com",
-         "role": "Instructor",
-         "gender": "Male"
-      },
-      {
-         "name": "Aruna",
-         "email": "aruna@gmail.com",
-         "role": "Instructor",
-         "gender": "Female"
-      },
-      {
-         "name": "Dinesh",
-         "email": "dinesh@gmail.com",
-         "role": "Instructor",
-         "gender": "Male"
-      },
-      {
-         "name": "Pooja",
-         "email": "pooh@gmail.com",
-         "role": "Instructor",
-         "gender": "Female"
-      }
-   ]
+  "user": [
+    {
+      "name": "Sridhar",
+      "email": "sri@gmail.com",
+      "role": "Instructor",
+      "gender": "Male",
+      "id": "d91b"
+    },
+    {
+      "name": "Aruna",
+      "email": "aruna@gmail.com",
+      "role": "Instructor",
+      "gender": "Female",
+      "id": "8b85"
+    },
+    {
+      "name": "Dinesh",
+      "email": "dinesh@gmail.com",
+      "role": "Instructor",
+      "gender": "Male",
+      "id": "f1f3"
+    },
+    {
+      "name": "Pooja",
+      "email": "pooh@gmail.com",
+      "role": "Instructor",
+      "gender": "Female",
+      "id": "7363"
+    }
+  ],
+  "courseDB": [
+    {
+      "courseName": "React.js",
+      "level": "Intermediate",
+      "description": "Dive in and learn React.js from scratch! Learn React, Hooks, Redux, React Router, Next.js, Best Practices and way more!",
+      "date": "28-03-2024",
+      "duration": "03:25:00",
+      "batch": "Morning",
+      "instructor": "Dinesh",
+      "image": "./asset/React.jpg"
+    },
+    {
+      "courseName": "Python",
+      "level": "Beginner",
+      "description": "Demonstrate proficiency in using Python libraries such as Pandas & Numpy, and developing code using Jupyter Notebooks.",
+      "date": "29-03-2024",
+      "duration": "02:30:00",
+      "batch": "Evening ",
+      "instructor": "Sridhar",
+      "image": "./asset/Python.png"
+    }
+  ]
 }

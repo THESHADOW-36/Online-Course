@@ -22,7 +22,8 @@ const Navbar = () => {
           <TabContext value={value}>
             <TabList onChange={handleChange}>
               <Tab sx={navTab} value='1' onClick={() => router('/')} label="Courses" />
-              <Tab sx={navTab} value='2' onClick={() => router('/userList')} label="User List" />
+              <Tab sx={navTab} value='2' onClick={() => router('/user-list')} label="User List" />
+              <Tab sx={navTab} value='3' onClick={() => router('/lecture-schedule')} label="Lecture Schedule" />
             </TabList>
           </TabContext>
           <Avatar sx={navProPic} />

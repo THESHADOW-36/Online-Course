@@ -89,7 +89,7 @@ const deleteApi = (url, paramsObj, header) => {
    }
 }
 
-const API = {
+export const API = {
    post,
    get,
    put,
