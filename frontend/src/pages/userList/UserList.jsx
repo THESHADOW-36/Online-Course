@@ -9,7 +9,7 @@ const InstructorList = () => {
   const [dialogAction, setDialogAction] = useState(false);
   const [addUserList, setAddUserList] = useState({ role: '', name: '', email: '', password: '', gender: '' });
   const [userListDB, setUserListDB] = useState([]);
-  console.log("addUserList :", addUserList)
+  console.log("addUserList :", userListDB)
 
   const closeDialog = () => {
     setDialogAction(false)
@@ -39,13 +39,25 @@ const InstructorList = () => {
     API.get(URL.getAllUsers).subscribe({
       next(response) {
         // console.log("response.data :", response.data.users)
-        setUserListDB(response?.data.users)
+        setUserListDB(response.data?.users)
       },
       error(error) {
         console.log(error)
       }
     })
   }
+
+  // const deleteUser = () => {
+  //   API.deleteApi(URL.deleteUser).subscribe({
+  //     next(response) {
+  //       console.log("response.data :", response)
+  //       alert("Successfully Deleted.")
+  //     },
+  //     error(error) {
+  //       console.log(error)
+  //     }
+  //   })
+  // }
 
   const fontFormat = (title) => {
     const capitalizeTitle = title.charAt(0).toUpperCase() + title.slice(1);
@@ -79,7 +91,7 @@ const InstructorList = () => {
                         <TableCell sx={tableBodyCell}>{id.email}</TableCell>
                         <TableCell sx={tableBodyCell}>{id.role}</TableCell>
                         <TableCell sx={tableBodyCell}>{id.gender}</TableCell>
-                        <TableCell sx={{ ...tableBodyCell, cursor: 'pointer' }}>Delete</TableCell>
+                        <TableCell sx={{ ...tableBodyCell, cursor: 'pointer' }} >Delete</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -87,13 +99,6 @@ const InstructorList = () => {
                   <Box sx={{ textAlign: 'center', fontSize: '30px' }}>No Data</Box>
                 }
               </Table>
-              {/* <TablePaginationActions
-                count={100}
-                page={page}
-                onPageChange={handleChangePage}
-                rowsPerPage={rowsPerPage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              /> */}
             </TableContainer>
           </Paper>
 

@@ -5,6 +5,7 @@ import Navbar from './components/navbar/Navbar';
 import { Box, ThemeProvider, createTheme } from '@mui/material';
 import InstructorList from './pages/userList/UserList';
 import LectureSchedule from './pages/instructorDashboard/LectureSchedule';
+import SignIn from './pages/signIn/SignIn';
 
 function App() {
   const theme = createTheme({
@@ -26,6 +27,7 @@ function App() {
             <Route path='/' element={<SchedulePg />} />
             <Route path='/user-list' element={<InstructorList />} />
             <Route path='/lecture-schedule' element={<LectureSchedule />} />
+            <Route path='/sign-in' element={<SignIn />} />
           </Routes>
         </Box>
       </Box>

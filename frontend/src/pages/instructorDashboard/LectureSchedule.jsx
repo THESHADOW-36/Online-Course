@@ -8,12 +8,42 @@ const LectureSchedule = () => {
       courseName: 'React.js',
       level: 'Intermediate',
       description: 'Dive in and learn React.js from scratch! Learn React, Hooks, Redux, React Router, Next.js, Best Practices and way more!',
-      date: '28-03-2024',
+      date: '27-03-2024',
       duration: '03:25:00',
       batch: 'Morning',
       instructor: 'Dinesh',
       image: './asset/React.jpg'
     },
+    {
+      courseName: 'Python',
+      level: 'Beginner',
+      description: 'Demonstrate proficiency in using Python libraries such as Pandas & Numpy, and developing code using Jupyter Notebooks.            ',
+      date: '28-03-2024',
+      duration: '02:30:00',
+      batch: 'Evening ',
+      instructor: 'Dinesh',
+      image: './asset/Python.png'
+    },
+    {
+      courseName: 'React.js',
+      level: 'Intermediate',
+      description: 'Dive in and learn React.js from scratch! Learn React, Hooks, Redux, React Router, Next.js, Best Practices and way more!',
+      date: '29-03-2024',
+      duration: '03:25:00',
+      batch: 'Morning',
+      instructor: 'Dinesh',
+      image: './asset/React.jpg'
+    },
+    {
+      courseName: 'Python',
+      level: 'Beginner',
+      description: 'Demonstrate proficiency in using Python libraries such as Pandas & Numpy, and developing code using Jupyter Notebooks.            ',
+      date: '30-03-2024',
+      duration: '02:30:00',
+      batch: 'Evening ',
+      instructor: 'Dinesh',
+      image: './asset/Python.png'
+    }
   ]
 
   return (
@@ -34,8 +64,8 @@ const LectureSchedule = () => {
                   <Typography sx={LSCourseDescriptionSx}>{course.description}</Typography>
                   <Typography sx={LSCourseInstructorSx}><b>Instructor:</b> {course.instructor}</Typography>
                   <Box sx={LSCourseTitle}>
-                    <Typography>Date: {course.date}</Typography>
-                    <Typography>{course.duration}</Typography>
+                    <Typography sx={{ marginRight: '8px' }}>Date: {course.date}</Typography>
+                    <Typography sx={{ marginRight: '8px' }}>{course.duration}</Typography>
                     <Typography>{course.batch}</Typography>
                   </Box>
                 </Box>

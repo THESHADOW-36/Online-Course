@@ -28,8 +28,10 @@ const SchedulePg = () => {
     API.post(URL.addLecture, scheduleList).subscribe({
       next(response) {
         getCoursesData();
-        console.log("response.data :", response.response.data.message)
-        toast.error(response.response.data.message)
+        console.log("response.data :", response?.response)
+        if (response?.response?.data?.success == false) {
+          toast.error(response?.response?.data?.message)
+        }
         closeDialog();
       },
       error(error) {
@@ -41,8 +43,8 @@ const SchedulePg = () => {
   const getCoursesData = () => {
     API.get(URL.getLectures).subscribe({
       next(response) {
-        console.log("response.data :", response.data.lecture)
-        const modifiedData = response.data.lecture.map((lec) => {
+        console.log("response.data :", response.data?.lecture)
+        const modifiedData = response.data?.lecture.map((lec) => {
           const dateTime = new Date(lec.date);
           const date = dateTime.toISOString().split("T")[0];
           return { ...lec, date: date };
@@ -80,7 +82,7 @@ const SchedulePg = () => {
                     <Box sx={courseImgLay}>
                       <img style={courseImg} src={course.image} alt="" />
                     </Box>
-                    <Box sx={{width:'70%'}}>
+                    <Box sx={{ width: '70%' }}>
                       <Box sx={courseTitle}>
                         <Typography sx={courseNameSx}>{course.courseName}</Typography>
                         <Typography sx={courseLevelSx}>({course.level})</Typography>
