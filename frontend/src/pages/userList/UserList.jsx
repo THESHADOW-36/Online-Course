@@ -3,16 +3,17 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider
 import { navButton } from '../../components/navbar/NavbarSx'
 import { dialogActionButtons, dialogInputBox, dialogTitle, inputLabel, inputProps, instructorList, instructorListLay, tableBodyCell, tableContainer, tableHeadCell, textField } from './UserListSx'
 import { API } from '../../constant/Network'
+import { URL } from '../../constant/Url'
 
 const InstructorList = () => {
   const [dialogAction, setDialogAction] = useState(false);
-  const [addUserList, setAddUserList] = useState({ name: '', email: '', role: '', gender: '' });
+  const [addUserList, setAddUserList] = useState({ role: '', name: '', email: '', password: '', gender: '' });
   const [userListDB, setUserListDB] = useState([]);
-  console.log("userListDB :", userListDB)
+  console.log("addUserList :", addUserList)
 
   const closeDialog = () => {
     setDialogAction(false)
-    setAddUserList({ name: '', email: '', role: '', gender: '' })
+    setAddUserList({ role: '', name: '', email: '', password: '', gender: '' })
   }
 
   const handleChange = (event) => {
@@ -21,15 +22,24 @@ const InstructorList = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert('hello')
-    setAddUserList({ name: '', email: '', role: '', gender: '' })
+
+    API.post(URL.register, addUserList).subscribe({
+      next(response) {
+        getUser();
+        console.log("response.data :", response)
+        closeDialog();
+      },
+      error(error) {
+        console.log(error)
+      }
+    })
   }
 
-  const addUser = () => {
-    API.get('http://localhost:8000/user').subscribe({
+  const getUser = () => {
+    API.get(URL.getAllUsers).subscribe({
       next(response) {
-        console.log("response.data :", response.data)
-        setUserListDB(response.data)
+        // console.log("response.data :", response.data.users)
+        setUserListDB(response?.data.users)
       },
       error(error) {
         console.log(error)
@@ -43,7 +53,7 @@ const InstructorList = () => {
   }
 
   useEffect(() => {
-    addUser();
+    getUser();
   }, [])
 
   return (
@@ -61,17 +71,21 @@ const InstructorList = () => {
                     ))}
                   </TableRow>
                 </TableHead>
-                <TableBody>
-                  {userListDB.map((id, index) => (
-                    <TableRow key={index}>
-                      <TableCell sx={tableBodyCell}>{id.name}</TableCell>
-                      <TableCell sx={tableBodyCell}>{id.email}</TableCell>
-                      <TableCell sx={tableBodyCell}>{id.role}</TableCell>
-                      <TableCell sx={tableBodyCell}>{id.gender}</TableCell>
-                      <TableCell sx={tableBodyCell}>O X</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
+                {userListDB ?
+                  <TableBody>
+                    {userListDB.map((id, index) => (
+                      <TableRow key={index}>
+                        <TableCell sx={tableBodyCell}>{id.name}</TableCell>
+                        <TableCell sx={tableBodyCell}>{id.email}</TableCell>
+                        <TableCell sx={tableBodyCell}>{id.role}</TableCell>
+                        <TableCell sx={tableBodyCell}>{id.gender}</TableCell>
+                        <TableCell sx={{ ...tableBodyCell, cursor: 'pointer' }}>Delete</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                  :
+                  <Box sx={{ textAlign: 'center', fontSize: '30px' }}>No Data</Box>
+                }
               </Table>
               {/* <TablePaginationActions
                 count={100}
@@ -88,13 +102,13 @@ const InstructorList = () => {
             <Divider />
             <form onSubmit={handleSubmit}>
               <DialogContent>
-                {['role', 'name', 'email', 'gender'].map((title, index) => (
+                {['role', 'name', 'email', 'password', 'gender'].map((title, index) => (
                   <Box sx={dialogInputBox}>
                     <InputLabel sx={inputLabel}>{fontFormat(title)}</InputLabel>
                     <TextField
                       sx={textField}
                       name={title}
-                      type={title === 'Password' ? 'password' : 'text'}
+                      type={title === 'password' ? 'password' : 'text'}
                       InputProps={inputProps}
                       value={addUserList[title]}
                       onChange={handleChange}

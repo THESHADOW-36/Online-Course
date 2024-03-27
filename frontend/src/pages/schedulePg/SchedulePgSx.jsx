@@ -63,7 +63,7 @@ export const courseTiming = {
   border: '1px solid #999999',
   borderRadius: '6px',
   width: '160px',
-  height:'140px',
+  height: '140px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
@@ -75,6 +75,14 @@ export const courseImgLay = {
   width: '300px',
   height: '150px',
   marginRight: '16px'
+}
+
+export const courseImg = {
+  borderRadius: '6px',
+  width: '300px',
+  height: '100%',
+  // objectFit: 'cover',
+  objectPosition: 'center'
 }
 
 export const courseDateSx = {
@@ -100,13 +108,4 @@ export const courseDurationSx = {
   fontWeight: '600',
   textAlign: 'center',
   padding: '2px'
-}
-
-
-export const courseImg = {
-  borderRadius: '6px',
-  width: '100%',
-  height: '100%',
-  // objectFit: 'cover',
-  objectPosition: 'center'
 }

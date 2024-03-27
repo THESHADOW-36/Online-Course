@@ -4,12 +4,14 @@ import { courseDetailLay, courseImg, courseImgLay, courseLevelSx, courseNameSx, 
 import { navButton } from '../../components/navbar/NavbarSx';
 import { dialogActionButtons, dialogInputBox, dialogTitle, inputLabel, inputProps, textField } from '../userList/UserListSx';
 import { API } from '../../constant/Network';
+import { URL } from '../../constant/Url';
+import toast from 'react-hot-toast'
 
 const SchedulePg = () => {
   const [dialogAction, setDialogAction] = useState(false);
   const [scheduleList, setScheduleList] = useState({ courseName: '', level: '', description: '', date: '', duration: '', batch: '', instructor: '', image: '' });
   const [scheduleListDB, setScheduleListDB] = useState([]);
-  console.log(scheduleListDB)
+  console.log(scheduleList)
 
   const closeDialog = () => {
     setDialogAction(false)
@@ -22,15 +24,30 @@ const SchedulePg = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert('hello')
-    setScheduleList({ courseName: '', level: '', description: '', date: '', duration: '', batch: '', instructor: '', image: '' })
+
+    API.post(URL.addLecture, scheduleList).subscribe({
+      next(response) {
+        getCoursesData();
+        console.log("response.data :", response.response.data.message)
+        toast.error(response.response.data.message)
+        closeDialog();
+      },
+      error(error) {
+        console.log(error)
+      }
+    })
   }
 
   const getCoursesData = () => {
-    API.get('http://localhost:8000/courseDB').subscribe({
+    API.get(URL.getLectures).subscribe({
       next(response) {
-        console.log("response.data :", response.data)
-        setScheduleListDB(response.data)
+        console.log("response.data :", response.data.lecture)
+        const modifiedData = response.data.lecture.map((lec) => {
+          const dateTime = new Date(lec.date);
+          const date = dateTime.toISOString().split("T")[0];
+          return { ...lec, date: date };
+        });
+        setScheduleListDB(modifiedData)
       },
       error(error) {
         console.log(error)
@@ -56,28 +73,33 @@ const SchedulePg = () => {
           <Box sx={schedulePgContent}>
             <Box sx={schedulePgContentTitle}>Assigned Courses</Box>
             <Divider sx={{ border: '1px solid #ededed', margin: '8px 0px 16px' }} />
-            {scheduleListDB.map((course, index) => (
-              <Box key={index} sx={courseDetailLay}>
-                <Box sx={courseImgLay}>
-                  <img style={courseImg} src={course.image} alt="" />
-                </Box>
-                <Box>
-                  <Box sx={courseTitle}>
-                    <Typography sx={courseNameSx}>{course.courseName}</Typography>
-                    <Typography sx={courseLevelSx}>({course.level})</Typography>
+            {scheduleListDB ?
+              <>
+                {scheduleListDB.map((course, index) => (
+                  <Box key={index} sx={courseDetailLay}>
+                    <Box sx={courseImgLay}>
+                      <img style={courseImg} src={course.image} alt="" />
+                    </Box>
+                    <Box sx={{width:'70%'}}>
+                      <Box sx={courseTitle}>
+                        <Typography sx={courseNameSx}>{course.courseName}</Typography>
+                        <Typography sx={courseLevelSx}>({course.level})</Typography>
+                      </Box>
+                      <Typography sx={courseDescriptionSx}>{course.description}</Typography>
+                      <Typography sx={courseInstructorSx}><b>Instructor:</b> {course.instructor.name}</Typography>
+                    </Box>
+                    <Box sx={courseTiming}>
+                      <Typography sx={courseDateSx}>{course.date}</Typography>
+                      <Typography sx={courseBatchSx}>{course.batch}</Typography>
+                      <Typography sx={courseBatchSx}>Batch</Typography>
+                      <Typography sx={courseDurationSx}>{course.duration}</Typography>
+                    </Box>
                   </Box>
-                  <Typography sx={courseDescriptionSx}>{course.description}</Typography>
-                  <Typography sx={courseInstructorSx}><b>Instructor:</b> {course.instructor}</Typography>
-                </Box>
-
-                <Box sx={courseTiming}>
-                  <Typography sx={courseDateSx}>{course.date}</Typography>
-                  <Typography sx={courseBatchSx}>{course.batch}</Typography>
-                  <Typography sx={courseBatchSx}>Batch</Typography>
-                  <Typography sx={courseDurationSx}>{course.duration} Hrs</Typography>
-                </Box>
-              </Box>
-            ))}
+                ))}
+              </>
+              :
+              <Box sx={{ textAlign: 'center', fontSize: '30px' }}>No Data</Box>
+            }
           </Box>
         </Paper>
 

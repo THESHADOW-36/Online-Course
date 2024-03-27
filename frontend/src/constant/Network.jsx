@@ -1,12 +1,31 @@
 import { Observable } from 'rxjs';
 import axios from 'axios';
 
-const post = (url, paramsObj, header) => {
+
+const getHeaders = () => {
+   // const userToken = localStorage.getItem("userToken");
+
+   // let headers = {};
+
+   // // If token exists and is not null, set up headers
+   // if (userToken !== null) {
+   //    headers = { Authorization: 'Bearer ' + userToken };
+   // } else {
+   //    console.log("token is not found")
+   // }
+   const headers = { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDQxMzBkMzI0Zjc5Zjk5ZjhjYWFkZCIsImlhdCI6MTcxMTU1MzU5NiwiZXhwIjoxNzExNTY1OTQxfQ.378mE9w5UjIw2nFGHk5UFJUD0IvPL6vt7CfLXBZx84E' }
+
+   return headers;
+}
+
+
+const post = (url, paramsObj) => {
+   const headers = getHeaders()
    try {
       return new Observable((observer) => {
          const params = { ...paramsObj }
          axios
-            .post(url, params, { header })
+            .post(url, params, { headers })
             .then((response) => {
                console.log(response)
                observer.next(response)
@@ -23,12 +42,15 @@ const post = (url, paramsObj, header) => {
    }
 }
 
-const get = (url, paramsObj, header) => {
+const get = (url, paramsObj) => {
+   console.log("url :", url)
+   const headers = getHeaders()
+   console.log(headers)
    try {
       return new Observable((observer) => {
          const params = { ...paramsObj }
          axios
-            .get(url, { params, header })
+            .get(url, { params, headers })
             .then((response) => {
                console.log(response)
                observer.next(response)
@@ -45,12 +67,13 @@ const get = (url, paramsObj, header) => {
    }
 }
 
-const put = (url, paramsObj, header) => {
+const put = (url, paramsObj) => {
+   const headers = getHeaders()
    try {
       return new Observable((observer) => {
          const params = { ...paramsObj }
          axios
-            .put(url, params, { header })
+            .put(url, params, { headers })
             .then((response) => {
                console.log(response)
                observer.next(response)
@@ -67,12 +90,13 @@ const put = (url, paramsObj, header) => {
    }
 }
 
-const deleteApi = (url, paramsObj, header) => {
+const deleteApi = (url, paramsObj) => {
+   const headers = getHeaders()
    try {
       return new Observable((observer) => {
          const params = { ...paramsObj }
          axios
-            .delete(url, { params, header })
+            .delete(url, { params, headers })
             .then((response) => {
                console.log(response)
                observer.next(response)
