@@ -1,0 +1,28 @@
+{
+   "user": [
+      {
+         "name": "Sridhar",
+         "email": "sri@gmail.com",
+         "role": "Instructor",
+         "gender": "Male"
+      },
+      {
+         "name": "Aruna",
+         "email": "aruna@gmail.com",
+         "role": "Instructor",
+         "gender": "Female"
+      },
+      {
+         "name": "Dinesh",
+         "email": "dinesh@gmail.com",
+         "role": "Instructor",
+         "gender": "Male"
+      },
+      {
+         "name": "Pooja",
+         "email": "pooh@gmail.com",
+         "role": "Instructor",
+         "gender": "Female"
+      }
+   ]
+}
