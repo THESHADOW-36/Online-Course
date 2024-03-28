@@ -1,4 +1,4 @@
-
+// https://online-coursef.onrender.com
 // Auth
 const register = "http://localhost:8000/api/v1/auth/register"; //post
 const login = "http://localhost:8000/api/v1/auth/login"; //post
