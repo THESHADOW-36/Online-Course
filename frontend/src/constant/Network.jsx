@@ -3,17 +3,16 @@ import axios from 'axios';
 
 
 const getHeaders = () => {
-   // const userToken = localStorage.getItem("userToken");
+   const userToken = localStorage.getItem("userToken");
 
-   // let headers = {};
+   let headers = {};
 
-   // // If token exists and is not null, set up headers
-   // if (userToken !== null) {
-   //    headers = { Authorization: 'Bearer ' + userToken };
-   // } else {
-   //    console.log("token is not found")
-   // }
-   const headers = { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDQxMzBkMzI0Zjc5Zjk5ZjhjYWFkZCIsImlhdCI6MTcxMTU1MzU5NiwiZXhwIjoxNzExNTY1OTQxfQ.378mE9w5UjIw2nFGHk5UFJUD0IvPL6vt7CfLXBZx84E' }
+   // If token exists and is not null, set up headers
+   if (userToken !== null) {
+      headers = { Authorization: 'Bearer ' + userToken };
+   } else {
+      console.log("token is not found")
+   }
 
    return headers;
 }
