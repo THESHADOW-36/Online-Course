@@ -34,7 +34,7 @@ const Navbar = () => {
               </TabList>
             }
           </TabContext>
-          <Avatar sx={navProPic} />
+          <Avatar sx={navProPic} onClick={() => router('/sign-in')} />
           {/* <Button sx={navButton} variant='contained' color='primary'>Sign In</Button> */}
         </Box>
       </Toolbar>
