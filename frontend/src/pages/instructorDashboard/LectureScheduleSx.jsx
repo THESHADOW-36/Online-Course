@@ -11,8 +11,8 @@ export const lectureScheduleLay = {
 
 export const LSGridItems = {
    // border: '1px solid blue',
+   height:'420px',
    display: 'flex',
-   alignItems: 'center',
    justifyContent: 'center'
 }
 
@@ -63,5 +63,10 @@ export const LSCourseDescriptionSx = {
 export const LSCourseInstructorSx = {
    fontSize: '16px',
    margin: '4px 0px'
+}
 
+export const LSCourseTiming = {
+   // display: 'flex',
+   // alignItems: 'center',
+   // margin: '4px 0px'
 }

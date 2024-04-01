@@ -2,7 +2,14 @@
   height: 100vh;
 }
 
-.mainContent{
+.mainContent {
   height: 91.3%;
   padding-top: 55px;
+}
+
+.LSCourseDescriptionStyle {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

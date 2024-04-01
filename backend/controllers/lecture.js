@@ -28,12 +28,23 @@ export const addLecture = asyncHandler(async (req, res, next) => {
 })
 
 export const getLectures = asyncHandler(async (req, res, next) => {
-   // const lecture = await Course.find({})
-   const lecture = await Course.find({}).populate('instructor', 'name');
 
-   if (!lecture) return res.status(401).json({ success: false, message: "Lecture data list is not found" });
+   if (req.user.role === 'Admin') {
 
-   res.status(200).json({ success: true, lecture })
+      const lecture = await Course.find({}).populate('instructor', 'name');
+
+      res.status(200).json({ success: true, lecture })
+
+   } else if (req.user.role !== 'Admin') {
+
+      const lecture = await Course.find({instructor: req.user._id}).populate('instructor', 'name');
+
+      res.status(200).json({ success: true, lecture })
+
+   } else {
+      return res.status(401).json({ success: false, message: "Lecture data list is not found" });
+   }
+
 })
 
 export const getSingleLecture = asyncHandler(async (req, res, next) => {
