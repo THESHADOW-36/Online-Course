@@ -11,7 +11,6 @@ const SchedulePg = () => {
   const [dialogAction, setDialogAction] = useState(false);
   const [scheduleList, setScheduleList] = useState({ courseName: '', level: '', description: '', date: '', duration: '', batch: '', instructor: '', image: '' });
   const [scheduleListDB, setScheduleListDB] = useState([]);
-  console.log(scheduleList)
 
   const closeDialog = () => {
     setDialogAction(false)
@@ -28,7 +27,7 @@ const SchedulePg = () => {
     API.post(URL.addLecture, scheduleList).subscribe({
       next(response) {
         getCoursesData();
-        console.log("response.data :", response?.response)
+        // console.log("response.data :", response?.response)
         if (response?.response?.data?.success == false) {
           toast.error(response?.response?.data?.message)
         }
@@ -43,7 +42,7 @@ const SchedulePg = () => {
   const getCoursesData = () => {
     API.get(URL.getLectures).subscribe({
       next(response) {
-        console.log("response.data :", response.data?.lecture)
+        // console.log("response.data :", response.data?.lecture)
         const modifiedData = response.data?.lecture.map((lec) => {
           const dateTime = new Date(lec.date);
           const date = dateTime.toISOString().split("T")[0];
@@ -116,7 +115,7 @@ const SchedulePg = () => {
                   <TextField
                     sx={textField}
                     name={title}
-                    type={title === 'Password' ? 'password' : 'text'}
+                    type={(title === 'Password' ? 'password' : 'text') && (title === 'image' ? 'file' : 'text')}
                     InputProps={inputProps}
                     value={scheduleList[title]}
                     onChange={handleChange}

@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
    const [userData, setUserData] = useState({ email: "", password: "" });
-   console.log("UserData :", userData)
 
    const router = useNavigate();
 
@@ -20,7 +19,7 @@ const SignIn = () => {
       event.preventDefault();
       API.post(URL.login, userData).subscribe({
          next(response) {
-            console.log("response.data :", response.data)
+            // console.log("response.data :", response.data)
             localStorage.setItem('userToken', response.data?.token)
             if (response.data?.success) {
                toast.success("Logged In");

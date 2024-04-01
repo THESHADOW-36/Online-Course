@@ -22,7 +22,12 @@ export const addLecture = asyncHandler(async (req, res, next) => {
 
    if (isDuplicate) return res.status(401).json({ success: false, message: `Instructor is already assigned on ${date}` });
 
-   const lecture = await Course.create({ courseName, level, description, date, duration, batch, instructor, image })
+   const instructorName = await User.findOne({ name: instructor })
+   console.log("instructorName :", instructorName)
+
+   const lecture = await Course.create({ courseName, level, description, date, duration, batch, instructor: instructorName, image })
+
+   if (!lecture) return res.status(401).json({ success: false, message: 'Invalid Data' });
 
    res.status(200).json({ success: true, lecture })
 })
@@ -37,7 +42,7 @@ export const getLectures = asyncHandler(async (req, res, next) => {
 
    } else if (req.user.role !== 'Admin') {
 
-      const lecture = await Course.find({instructor: req.user._id}).populate('instructor', 'name');
+      const lecture = await Course.find({ instructor: req.user._id }).populate('instructor', 'name');
 
       res.status(200).json({ success: true, lecture })
 

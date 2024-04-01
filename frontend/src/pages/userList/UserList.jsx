@@ -9,7 +9,6 @@ const InstructorList = () => {
   const [dialogAction, setDialogAction] = useState(false);
   const [addUserList, setAddUserList] = useState({ role: '', name: '', email: '', password: '', gender: '' });
   const [userListDB, setUserListDB] = useState([]);
-  console.log("addUserList :", userListDB)
 
   const closeDialog = () => {
     setDialogAction(false)
@@ -25,8 +24,8 @@ const InstructorList = () => {
 
     API.post(URL.register, addUserList).subscribe({
       next(response) {
+        // console.log("response.data :", response)
         getUser();
-        console.log("response.data :", response)
         closeDialog();
       },
       error(error) {

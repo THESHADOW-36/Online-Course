@@ -12,7 +12,6 @@ const Navbar = () => {
   const loc = useLocation()
   const [value, setValue] = useState(1);
   const [currentUser, setCurrentUser] = useState();
-  console.log(currentUser)
 
   const getCurrentUser = () => {
     API.get(URL.getCurrentUser).subscribe({
