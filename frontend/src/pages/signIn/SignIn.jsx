@@ -24,7 +24,11 @@ const SignIn = () => {
             localStorage.setItem('userToken', response.data?.token)
             if (response.data?.success) {
                toast.success("Logged In");
-               router('/');
+               if(response.data?.user.role === "Admin"){
+                  router('/');
+               }else {
+                  router('/lecture-schedule');
+               }
             } else {
                toast.error("Invalid data!");
             }

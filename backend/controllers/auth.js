@@ -27,7 +27,7 @@ const sendTokenResponse = (user, status, res) => {
 
    const token = user.getJWTWebToken();
 
-   return res.status(status).json({ success: true, token });
+   return res.status(status).json({ success: true, token, user });
 }
 
 export const getAllUsers = asyncHandler(async (req, res, next) => {

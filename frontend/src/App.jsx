@@ -28,7 +28,6 @@ function App() {
   const getCurrentUser = () => {
     API.get(URL.getCurrentUser)?.subscribe({
       next(res) {
-        // console.log(res.data.user)
         setCurrentUser(res.data?.user)
       },
       error(err) {
@@ -68,14 +67,10 @@ function App() {
                       <>
                         <Route path='/' element={<SchedulePg />} />
                         <Route path='/user-list' element={<InstructorList />} />
-                        <Route path="/lecture-schedule" element={<Navigate to="/" replace />} />
                       </>
                     }
                     {!isAdmin &&
-                      <>
-                        <Route path='/lecture-schedule' element={<LectureSchedule />} />
-                        <Route path="/" element={<Navigate to="/lecture-schedule" replace />} />
-                      </>
+                      <Route path='/lecture-schedule' element={<LectureSchedule />} />
                     }
                   </>
                   :
