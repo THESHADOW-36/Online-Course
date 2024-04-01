@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import SchedulePg from './pages/schedulePg/SchedulePg';
 import Navbar from './components/navbar/Navbar';
 import { Box, ThemeProvider, createTheme } from '@mui/material';
@@ -26,19 +26,21 @@ function App() {
   console.log(currentUser)
 
   const getCurrentUser = () => {
-    API.get(URL.getCurrentUser).subscribe({
+    API.get(URL.getCurrentUser)?.subscribe({
       next(res) {
         // console.log(res.data.user)
-        setCurrentUser(res.data.user)
+        setCurrentUser(res.data?.user)
       },
       error(err) {
         console.log(err)
       }
     })
   }
-
+  const loc = useLocation();
+  const isLoggedIn = !!localStorage.getItem('userToken');
   const isAdmin = currentUser?.role === 'Admin'
-
+  const isSignInPg = loc.pathname === "/sign-in";
+  console.log("isSignInPg", isSignInPg)
   useEffect(() => {
     getCurrentUser();
   }, [])
@@ -46,22 +48,46 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box className="App">
-        <Navbar />
-        <Box className='mainContent'>
-          <Routes>
-            {isAdmin ?
-              <>
-                <Route path='/' element={<SchedulePg />} />
-                <Route path='/user-list' element={<InstructorList />} />
-              </>
-              :
-              <>
-                <Route path='/lecture-schedule' element={<LectureSchedule />} />
-              </>
-            }
-            <Route path='/sign-in' element={<SignIn />} />
-          </Routes>
-        </Box>
+        <Routes>
+          {isLoggedIn ? (
+            <Route path="/sign-in" element={<Navigate to="/" replace />} />
+          ) : (
+            <Route path="/sign-in" element={<SignIn />} />
+          )}
+        </Routes>
+
+        {!isSignInPg &&
+          <>
+            <Navbar />
+            <Box className='mainContent'>
+              <Routes>
+                {/* <Route path='/sign-in' element={<SignIn />} /> */}
+                {isLoggedIn ?
+                  <>
+                    {isAdmin &&
+                      <>
+                        <Route path='/' element={<SchedulePg />} />
+                        <Route path='/user-list' element={<InstructorList />} />
+                        <Route path="/lecture-schedule" element={<Navigate to="/" replace />} />
+                      </>
+                    }
+                    {!isAdmin &&
+                      <>
+                        <Route path='/lecture-schedule' element={<LectureSchedule />} />
+                        <Route path="/" element={<Navigate to="/lecture-schedule" replace />} />
+                      </>
+                    }
+                  </>
+                  :
+                  <>
+                    <Route path="*" element={<Navigate to="/sign-in" replace />} />
+                  </>
+                }
+              </Routes>
+            </Box>
+          </>
+        }
+
       </Box>
     </ThemeProvider>
   );

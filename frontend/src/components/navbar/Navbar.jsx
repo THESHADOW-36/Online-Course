@@ -18,7 +18,7 @@ const Navbar = () => {
     API.get(URL.getCurrentUser).subscribe({
       next(res) {
         // console.log(res.data.user)
-        setCurrentUser(res.data.user)
+        setCurrentUser(res.data?.user)
       },
       error(err) {
         console.log(err)
