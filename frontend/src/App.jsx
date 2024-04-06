@@ -60,7 +60,6 @@ function App() {
             <Navbar />
             <Box className='mainContent'>
               <Routes>
-                {/* <Route path='/sign-in' element={<SignIn />} /> */}
                 {isLoggedIn ?
                   <>
                     {isAdmin &&
